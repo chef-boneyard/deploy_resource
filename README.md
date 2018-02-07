@@ -1,9 +1,10 @@
-# deploy Cookbook
+# deploy_resource Cookbook
 
 [![Build Status](https://travis-ci.org/chef-cookbooks/deploy.svg?branch=master)](https://travis-ci.org/chef-cookbooks/deploy) [![Cookbook Version](https://img.shields.io/cookbook/v/deploy.svg)](https://supermarket.chef.io/cookbooks/deploy)
 
 A backwards compatibility cookbook for users of Chef 14+ which ships the previously bundled deploy resource.
 
+## Requirements
 
 ### Platforms
 
