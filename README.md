@@ -1,6 +1,6 @@
 # deploy_resource Cookbook
 
-[![Build Status](https://travis-ci.org/chef-cookbooks/deploy.svg?branch=master)](https://travis-ci.org/chef-cookbooks/deploy) [![Cookbook Version](https://img.shields.io/cookbook/v/deploy.svg)](https://supermarket.chef.io/cookbooks/deploy)
+[![Build Status](https://travis-ci.org/chef-cookbooks/deploy_resource.svg?branch=master)](https://travis-ci.org/chef-cookbooks/deploy_resource) [![Cookbook Version](https://img.shields.io/cookbook/v/deploy_resource.svg)](https://supermarket.chef.io/cookbooks/deploy_resource)
 
 A backwards compatibility cookbook for users of Chef 14+ which ships the previously bundled deploy resource.
 
@@ -24,17 +24,12 @@ This cookbook is maintained by Chef's Community Cookbook Engineering team. Our g
 
 ## License
 
-**Copyright:** 2008-2017, Chef Software, Inc.
+**Copyright:** 2008-2018, Chef Software, Inc.
+
+``` Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
 ```
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+```
 
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
