@@ -20,7 +20,6 @@
 #
 
 require "chef/provider"
-require "chef/provider/deploy"
 require "chef/json_compat"
 
 class Chef
