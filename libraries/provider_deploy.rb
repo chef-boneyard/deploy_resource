@@ -388,6 +388,7 @@ class Chef
         run_opts[:user] = new_resource.user if new_resource.user
         run_opts[:group] = new_resource.group if new_resource.group
         run_opts[:environment] = new_resource.environment if new_resource.environment
+        run_opts[:timeout] = new_resource.timeout if new_resource.timeout
         run_opts[:log_tag] = new_resource.to_s
         run_opts[:log_level] ||= :debug
         if run_opts[:log_level] == :info
