@@ -19,8 +19,8 @@
 # limitations under the License.
 #
 
-require "chef/provider"
-require "chef/json_compat"
+require 'chef/provider'
+require 'chef/json_compat'
 
 class Chef
   class Provider
@@ -44,10 +44,9 @@ class Chef
           known_releases = sorted_releases
 
           Dir["#{Chef::Util::PathHelper.escape_glob_dir(new_resource.deploy_to)}/releases/*"].each do |release_dir|
-            unless known_releases.include?(release_dir)
-              converge_by("Remove unknown release in #{release_dir}") do
-                FileUtils.rm_rf(release_dir)
-              end
+            next if known_releases.include?(release_dir)
+            converge_by("Remove unknown release in #{release_dir}") do
+              FileUtils.rm_rf(release_dir)
             end
           end
         end
@@ -86,7 +85,7 @@ class Chef
         end
 
         def sorted_releases_from_filesystem
-          Dir.glob(Chef::Util::PathHelper.escape_glob_dir(new_resource.deploy_to) + "/releases/*").sort_by { |d| ::File.ctime(d) }
+          Dir.glob(Chef::Util::PathHelper.escape_glob_dir(new_resource.deploy_to) + '/releases/*').sort_by { |d| ::File.ctime(d) }
         end
 
         def load_cache
@@ -99,7 +98,6 @@ class Chef
           Chef::FileCache.store("revision-deploys/#{new_resource.name}", Chef::JSONCompat.to_json(cache))
           cache
         end
-
       end
     end
   end

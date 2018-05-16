@@ -36,11 +36,10 @@
 #   svn_password "supersecret"
 # end
 
-require "chef/resource/scm"
+require 'chef/resource/scm'
 
 class Chef
   class Resource
-
     # Deploy: Deploy apps from a source control repository.
     #
     # Callbacks:
@@ -51,7 +50,6 @@ class Chef
     # release directory. Callback files can contain chef code (resources, etc.)
     #
     class Deploy < Chef::Resource
-
       identity_attr :repository
 
       state_attrs :deploy_to, :revision
@@ -63,16 +61,16 @@ class Chef
         super
         @deploy_to = name
         @environment = nil
-        @repository_cache = "cached-copy"
+        @repository_cache = 'cached-copy'
         @copy_exclude = []
-        @purge_before_symlink = %w{log tmp/pids public/system}
-        @create_dirs_before_symlink = %w{tmp public config}
-        @symlink_before_migrate = { "config/database.yml" => "config/database.yml" }
-        @symlinks = { "system" => "public/system", "pids" => "tmp/pids", "log" => "log" }
-        @revision = "HEAD"
+        @purge_before_symlink = %w(log tmp/pids public/system)
+        @create_dirs_before_symlink = %w(tmp public config)
+        @symlink_before_migrate = { 'config/database.yml' => 'config/database.yml' }
+        @symlinks = { 'system' => 'public/system', 'pids' => 'tmp/pids', 'log' => 'log' }
+        @revision = 'HEAD'
         @migrate = false
         @rollback_on_error = false
-        @remote = "origin"
+        @remote = 'origin'
         @enable_submodules = false
         @shallow_clone = false
         @depth = nil
@@ -81,7 +79,7 @@ class Chef
         @additional_remotes = Hash[]
         @keep_releases = 5
         @enable_checkout = true
-        @checkout_branch = "deploy"
+        @checkout_branch = 'deploy'
       end
 
       # Hide the method defined in Chef::Resource bundled with Chef 13
@@ -95,19 +93,19 @@ class Chef
 
       # where shared stuff goes, i.e., logs, tmp, etc. goes here
       def shared_path
-        @shared_path ||= @deploy_to + "/shared"
+        @shared_path ||= @deploy_to + '/shared'
       end
 
       # where the deployed version of your code goes
       def current_path
-        @current_path ||= @deploy_to + "/current"
+        @current_path ||= @deploy_to + '/current'
       end
 
       def depth(arg = @shallow_clone ? 5 : nil)
         set_or_return(
           :depth,
           arg,
-          :kind_of => [ Integer ]
+          kind_of: [ Integer ]
         )
       end
 
@@ -116,7 +114,7 @@ class Chef
         set_or_return(
           :deploy_to,
           arg,
-          :kind_of => [ String ]
+          kind_of: [ String ]
         )
       end
 
@@ -124,7 +122,7 @@ class Chef
         set_or_return(
           :repo,
           arg,
-          :kind_of => [ String ]
+          kind_of: [ String ]
         )
       end
       alias :repository :repo
@@ -133,7 +131,7 @@ class Chef
         set_or_return(
           :remote,
           arg,
-          :kind_of => [ String ]
+          kind_of: [ String ]
         )
       end
 
@@ -141,7 +139,7 @@ class Chef
         set_or_return(
           :role,
           arg,
-          :kind_of => [ String ]
+          kind_of: [ String ]
         )
       end
 
@@ -150,7 +148,7 @@ class Chef
         set_or_return(
           :restart_command,
           arg,
-          :kind_of => [ String, Proc ]
+          kind_of: [ String, Proc ]
         )
       end
       alias :restart :restart_command
@@ -159,7 +157,7 @@ class Chef
         set_or_return(
           :migrate,
           arg,
-          :kind_of => [ TrueClass, FalseClass ]
+          kind_of: [ TrueClass, FalseClass ]
         )
       end
 
@@ -167,7 +165,7 @@ class Chef
         set_or_return(
           :migration_command,
           arg,
-          :kind_of => [ String ]
+          kind_of: [ String ]
         )
       end
 
@@ -175,7 +173,7 @@ class Chef
         set_or_return(
           :rollback_on_error,
           arg,
-          :kind_of => [ TrueClass, FalseClass ]
+          kind_of: [ TrueClass, FalseClass ]
         )
       end
 
@@ -183,7 +181,7 @@ class Chef
         set_or_return(
           :user,
           arg,
-          :kind_of => [ String ]
+          kind_of: [ String ]
         )
       end
 
@@ -191,7 +189,7 @@ class Chef
         set_or_return(
           :group,
           arg,
-          :kind_of => [ String ]
+          kind_of: [ String ]
         )
       end
 
@@ -199,7 +197,7 @@ class Chef
         set_or_return(
           :enable_submodules,
           arg,
-          :kind_of => [ TrueClass, FalseClass ]
+          kind_of: [ TrueClass, FalseClass ]
         )
       end
 
@@ -207,7 +205,7 @@ class Chef
         set_or_return(
           :shallow_clone,
           arg,
-          :kind_of => [ TrueClass, FalseClass ]
+          kind_of: [ TrueClass, FalseClass ]
         )
       end
 
@@ -215,7 +213,7 @@ class Chef
         set_or_return(
           :repository_cache,
           arg,
-          :kind_of => [ String ]
+          kind_of: [ String ]
         )
       end
 
@@ -223,7 +221,7 @@ class Chef
         set_or_return(
           :copy_exclude,
           arg,
-          :kind_of => [ String ]
+          kind_of: [ String ]
         )
       end
 
@@ -231,7 +229,7 @@ class Chef
         set_or_return(
           :revision,
           arg,
-          :kind_of => [ String ]
+          kind_of: [ String ]
         )
       end
       alias :branch :revision
@@ -240,7 +238,7 @@ class Chef
         set_or_return(
           :git_ssh_wrapper,
           arg,
-          :kind_of => [ String ]
+          kind_of: [ String ]
         )
       end
       alias :ssh_wrapper :git_ssh_wrapper
@@ -249,7 +247,7 @@ class Chef
         set_or_return(
           :svn_username,
           arg,
-          :kind_of => [ String ]
+          kind_of: [ String ]
         )
       end
 
@@ -257,7 +255,7 @@ class Chef
         set_or_return(
           :svn_password,
           arg,
-          :kind_of => [ String ]
+          kind_of: [ String ]
         )
       end
 
@@ -265,7 +263,7 @@ class Chef
         set_or_return(
           :svn_arguments,
           arg,
-          :kind_of => [ String ]
+          kind_of: [ String ]
         )
       end
 
@@ -273,11 +271,11 @@ class Chef
         set_or_return(
           :svn_arguments,
           arg,
-          :kind_of => [ String ])
+          kind_of: [ String ])
       end
 
       def scm_provider(arg = nil)
-        klass = if arg.kind_of?(String) || arg.kind_of?(Symbol)
+        klass = if arg.is_a?(String) || arg.is_a?(Symbol)
                   lookup_provider_constant(arg)
                 else
                   arg
@@ -285,7 +283,7 @@ class Chef
         set_or_return(
           :scm_provider,
           klass,
-          :kind_of => [ Class ]
+          kind_of: [ Class ]
         )
       end
 
@@ -299,29 +297,29 @@ class Chef
         set_or_return(
           :svn_force_export,
           arg,
-          :kind_of => [ TrueClass, FalseClass ]
+          kind_of: [ TrueClass, FalseClass ]
         )
       end
 
       def environment(arg = nil)
         if arg.is_a?(String)
           Chef::Log.debug "Setting RAILS_ENV, RACK_ENV, and MERB_ENV to `#{arg}'"
-          Chef::Log.warn "[DEPRECATED] please modify your deploy recipe or attributes to set the environment using a hash"
-          arg = { "RAILS_ENV" => arg, "MERB_ENV" => arg, "RACK_ENV" => arg }
+          Chef::Log.warn '[DEPRECATED] please modify your deploy recipe or attributes to set the environment using a hash'
+          arg = { 'RAILS_ENV' => arg, 'MERB_ENV' => arg, 'RACK_ENV' => arg }
         end
         set_or_return(
           :environment,
           arg,
-          :kind_of => [ Hash ]
+          kind_of: [ Hash ]
         )
       end
 
-       # The number of old release directories to keep around after cleanup
+      # The number of old release directories to keep around after cleanup
       def keep_releases(arg = nil)
         [set_or_return(
           :keep_releases,
           arg,
-          :kind_of => [ Integer ]), 1].max
+          kind_of: [ Integer ]), 1].max
       end
 
       # An array of paths, relative to your app's root, to be purged from a
@@ -332,7 +330,7 @@ class Chef
         set_or_return(
           :purge_before_symlink,
           arg,
-          :kind_of => Array
+          kind_of: Array
         )
       end
 
@@ -348,7 +346,7 @@ class Chef
         set_or_return(
           :create_dirs_before_symlink,
           arg,
-          :kind_of => Array
+          kind_of: Array
         )
       end
 
@@ -362,7 +360,7 @@ class Chef
         set_or_return(
           :symlinks,
           arg,
-          :kind_of => Hash
+          kind_of: Hash
         )
       end
 
@@ -377,39 +375,39 @@ class Chef
         set_or_return(
           :symlink_before_migrate,
           arg,
-          :kind_of => Hash
+          kind_of: Hash
         )
       end
 
       # Callback fires before migration is run.
       def before_migrate(arg = nil, &block)
         arg ||= block
-        set_or_return(:before_migrate, arg, :kind_of => [Proc, String])
+        set_or_return(:before_migrate, arg, kind_of: [Proc, String])
       end
 
       # Callback fires before symlinking
       def before_symlink(arg = nil, &block)
         arg ||= block
-        set_or_return(:before_symlink, arg, :kind_of => [Proc, String])
+        set_or_return(:before_symlink, arg, kind_of: [Proc, String])
       end
 
       # Callback fires before restart
       def before_restart(arg = nil, &block)
         arg ||= block
-        set_or_return(:before_restart, arg, :kind_of => [Proc, String])
+        set_or_return(:before_restart, arg, kind_of: [Proc, String])
       end
 
       # Callback fires after restart
       def after_restart(arg = nil, &block)
         arg ||= block
-        set_or_return(:after_restart, arg, :kind_of => [Proc, String])
+        set_or_return(:after_restart, arg, kind_of: [Proc, String])
       end
 
       def additional_remotes(arg = nil)
         set_or_return(
           :additional_remotes,
           arg,
-          :kind_of => Hash
+          kind_of: Hash
         )
       end
 
@@ -417,7 +415,7 @@ class Chef
         set_or_return(
           :enable_checkout,
           arg,
-          :kind_of => [TrueClass, FalseClass]
+          kind_of: [TrueClass, FalseClass]
         )
       end
 
@@ -425,11 +423,11 @@ class Chef
         set_or_return(
           :checkout_branch,
           arg,
-          :kind_of => String
+          kind_of: String
         )
       end
 
-      # FIXME The Deploy resource may be passed to an SCM provider as its
+      # FIXME: The Deploy resource may be passed to an SCM provider as its
       # resource.  The SCM provider knows that SCM resources can specify a
       # timeout for SCM operations. The deploy resource must therefore support
       # a timeout method, but the timeout it describes is for SCM operations,
@@ -438,10 +436,9 @@ class Chef
         set_or_return(
           :timeout,
           arg,
-          :kind_of => Integer
+          kind_of: Integer
         )
       end
-
     end
   end
 end
