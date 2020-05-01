@@ -1,7 +1,7 @@
 #
 # Author:: Daniel DeLeo (<dan@kallistec.com>)
 # Author:: Tyler Cloke (<tyler@chef.io>)
-# Copyright:: Copyright 2008-2016, Chef Software Inc.
+# Copyright:: Copyright (c) Chef Software Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,8 +36,6 @@
 #   svn_password "supersecret"
 # end
 
-require 'chef/resource/scm'
-
 class Chef
   class Resource
     # Deploy: Deploy apps from a source control repository.
@@ -50,6 +48,8 @@ class Chef
     # release directory. Callback files can contain chef code (resources, etc.)
     #
     class Deploy < Chef::Resource
+      provides :deploy
+
       identity_attr :repository
 
       state_attrs :deploy_to, :revision
